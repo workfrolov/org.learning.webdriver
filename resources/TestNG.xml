@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestPrintString" verbose="1" >
+    <test name="Main" >
+        <classes>
+            <class name="TestSuit.Tests" />
+        </classes>
+    </test>
+</suite>

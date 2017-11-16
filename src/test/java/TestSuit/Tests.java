@@ -12,7 +12,11 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Tests {
+    static final Logger LOGGER = LoggerFactory.getLogger(Tests.class);
     private static WebDriver driver;
 
     @BeforeTest
@@ -26,12 +30,14 @@ public class Tests {
     public void gRequest() {
         driver.get("https://www.google.com");
         Assert.assertEquals("https://www.google.com", driver.getCurrentUrl());
+        LOGGER.info(driver.getCurrentUrl());
         WebElement searchform = driver.findElement(By.id("lst-ib"));
         String searchRequest = "webdriver tutorial";
         searchform.sendKeys(searchRequest);
         searchform.sendKeys(Keys.ENTER);
         String searchResult = driver.findElement(By.id("lst-ib")).getAttribute("value");
         Assert.assertEquals(searchResult, searchRequest);
+        LOGGER.info(searchResult);
     }
 
     @Test
@@ -40,12 +46,14 @@ public class Tests {
         String mainNumber = "(678) 744-0130";
         String ext = " 101";
         String pswd = "Test!123";
+        LOGGER.info(mainNumber, ext, pswd);
         driver.get(loginPage);
         Assert.assertEquals("https://service-amsup.lab.nordigy.ru/#/enterCredential", driver.getCurrentUrl());
         WebElement credentialValue = driver.findElement(By.id("credential"));
         credentialValue.sendKeys(mainNumber);
         WebElement nextButton = driver.findElement(By.xpath("//div[@class='text-center']"));
         nextButton.click();
+        LOGGER.info(driver.getCurrentUrl());
 
         //String loginNumber = driver.findElement(By.id("usernameFormGroup")).getAttribute("value");
         //Assert.assertEquals(loginNumber, mainNumber);
@@ -58,6 +66,7 @@ public class Tests {
         signIn.click();
         String accountInfo = driver.findElement(By.cssSelector("span.extension-info")).getText();
         Assert.assertEquals(mainNumber + " Ext." + ext, accountInfo);
+        LOGGER.info(driver.findElement(By.cssSelector("span.extension-info")).getText());
     }
 
     @AfterTest

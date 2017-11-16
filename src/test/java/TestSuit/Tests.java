@@ -9,7 +9,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,25 +19,45 @@ public class Tests {
     public static void setDriver() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
     @Test
     public void gRequest() {
         driver.get("https://www.google.com");
-        Assert.assertEquals("https://www.google.com",driver.getCurrentUrl());
+        Assert.assertEquals("https://www.google.com", driver.getCurrentUrl());
         WebElement searchform = driver.findElement(By.id("lst-ib"));
         String searchRequest = "webdriver tutorial";
         searchform.sendKeys(searchRequest);
         searchform.sendKeys(Keys.ENTER);
         String searchResult = driver.findElement(By.id("lst-ib")).getAttribute("value");
-        Assert.assertEquals(searchResult,searchRequest );
+        Assert.assertEquals(searchResult, searchRequest);
     }
 
     @Test
-    public void rc(){
-        driver.get("https://www.ringcentral.com");
+    public void rc() {
+        String loginPage = "https://service-amsup.lab.nordigy.ru/#/enterCredential";
+        String mainNumber = "(678) 744-0130";
+        String ext = " 101";
+        String pswd = "Test!123";
+        driver.get(loginPage);
+        Assert.assertEquals("https://service-amsup.lab.nordigy.ru/#/enterCredential", driver.getCurrentUrl());
+        WebElement credentialValue = driver.findElement(By.id("credential"));
+        credentialValue.sendKeys(mainNumber);
+        WebElement nextButton = driver.findElement(By.xpath("//div[@class='text-center']"));
+        nextButton.click();
 
+        //String loginNumber = driver.findElement(By.id("usernameFormGroup")).getAttribute("value");
+        //Assert.assertEquals(loginNumber, mainNumber);
+
+        WebElement extPin = driver.findElement(By.id("pin"));
+        extPin.sendKeys(ext);
+        WebElement extPswd = driver.findElement(By.id("password"));
+        extPswd.sendKeys(pswd);
+        WebElement signIn = driver.findElement(By.cssSelector("button.btn.btn-primary"));
+        signIn.click();
+        String accountInfo = driver.findElement(By.cssSelector("span.extension-info")).getText();
+        Assert.assertEquals(mainNumber + " Ext." + ext, accountInfo);
     }
 
     @AfterTest
@@ -46,5 +65,3 @@ public class Tests {
         driver.quit();
     }
 }
-
-

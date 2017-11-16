@@ -58,6 +58,8 @@ public class Tests {
         //String loginNumber = driver.findElement(By.id("usernameFormGroup")).getAttribute("value");
         //Assert.assertEquals(loginNumber, mainNumber);
 
+        //https://wiki.base22.com/display/btg/How+to+setup+SLF4J+and+LOGBack+in+a+web+app+-+fast
+
         WebElement extPin = driver.findElement(By.id("pin"));
         extPin.sendKeys(ext);
         WebElement extPswd = driver.findElement(By.id("password"));

@@ -1,6 +1,7 @@
 package TestSuit;
 
 import com.ringcentral.frolov.RCAccount;
+import com.ringcentral.frolov.managers.serviceweb.Navigation;
 import com.ringcentral.frolov.managers.serviceweb.ServiceWebManager;
 import com.ringcentral.frolov.managers.serviceweb.SWEnv;
 import org.openqa.selenium.By;
@@ -28,7 +29,7 @@ public class Tests {
 
     @BeforeTest
     public static void setDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\chromedriver\\chromedriver.exe");
+       // System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
@@ -50,28 +51,27 @@ public class Tests {
     @Test
     public void rc() {
         ServiceWebManager serviceWebManager = new ServiceWebManager(driver, SWEnv.AMS);
-        serviceWebManager.login(account);
-        RCAccount account = new RCAccount("","", "");
-        //extract to login
-        //LOGGER.info(mainNumber, ext, pswd);
-
+        serviceWebManager.navigateTo(Navigation.LOGIN);
         Assert.assertEquals("https://service-amsup.lab.nordigy.ru/#/enterCredential", driver.getCurrentUrl());
-        WebElement credentialValue = driver.findElement(By.id("credential"));
-        //extract to login
-        //credentialValue.sendKeys(mainNumber);
-        WebElement nextButton = driver.findElement(By.xpath("//div[@class='text-center']"));
-        nextButton.click();
-        LOGGER.info(driver.getCurrentUrl());
+        serviceWebManager.getSignIn()
+                .setEmailOrPhoneNumber(account.getMainNumber())
+                .next();
 
-        //String loginNumber = driver.findElement(By.id("usernameFormGroup")).getAttribute("value");
-        //Assert.assertEquals(loginNumber, mainNumber);
+        LOGGER.info(driver.getCurrentUrl());
+        //TODO home task - extract to page class
+        String loginNumber = driver.findElement(By.xpath("//div[@id='rc-login-country-number']//input")).getAttribute("value");
+        Assert.assertEquals(loginNumber, account.getMainNumber());
 
         //https://wiki.base22.com/display/btg/How+to+setup+SLF4J+and+LOGBack+in+a+web+app+-+fast
 //extract to login
-
-//        String accountInfo = driver.findElement(By.cssSelector("span.extension-info")).getText();
-//        Assert.assertEquals(mainNumber + " Ext." + ext, accountInfo);
-//        LOGGER.info(driver.findElement(By.cssSelector("span.extension-info")).getText());
+        serviceWebManager.getLoginPage().
+                setExtension(account.getExtension())
+                .setPassword(account.getPassword())
+                .submit();
+        //TODO home task - extract to page class
+        String accountInfo = driver.findElement(By.cssSelector("span.extension-info")).getText();
+        Assert.assertEquals(accountInfo, account.getMainNumber() + " Ext. " + account.getExtension(), accountInfo);
+        LOGGER.info(driver.findElement(By.cssSelector("span.extension-info")).getText());
     }
 
     @AfterTest

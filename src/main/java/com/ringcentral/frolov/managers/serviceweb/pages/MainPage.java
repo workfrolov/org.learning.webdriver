@@ -1,4 +1,4 @@
-package com.ringcentral.frolov.managers.serviceweb;
+package com.ringcentral.frolov.managers.serviceweb.pages;
 
 import org.openqa.selenium.WebDriver;
 

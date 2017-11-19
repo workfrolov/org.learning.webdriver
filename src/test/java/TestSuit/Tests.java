@@ -1,5 +1,8 @@
 package TestSuit;
 
+import com.ringcentral.frolov.RCAccount;
+import com.ringcentral.frolov.managers.serviceweb.ServiceWebManager;
+import com.ringcentral.frolov.managers.serviceweb.SWEnv;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +19,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Tests {
+    private RCAccount account = new RCAccount("(678) 744-0130", "Test!123", "101");
+
+
+
     static final Logger LOGGER = LoggerFactory.getLogger(Tests.class);
     private static WebDriver driver;
 
@@ -42,15 +49,16 @@ public class Tests {
 
     @Test
     public void rc() {
-        String loginPage = "https://service-amsup.lab.nordigy.ru/#/enterCredential";
-        String mainNumber = "(678) 744-0130";
-        String ext = " 101";
-        String pswd = "Test!123";
-        LOGGER.info(mainNumber, ext, pswd);
-        driver.get(loginPage);
+        ServiceWebManager serviceWebManager = new ServiceWebManager(driver, SWEnv.AMS);
+        serviceWebManager.login(account);
+        RCAccount account = new RCAccount("","", "");
+        //extract to login
+        //LOGGER.info(mainNumber, ext, pswd);
+
         Assert.assertEquals("https://service-amsup.lab.nordigy.ru/#/enterCredential", driver.getCurrentUrl());
         WebElement credentialValue = driver.findElement(By.id("credential"));
-        credentialValue.sendKeys(mainNumber);
+        //extract to login
+        //credentialValue.sendKeys(mainNumber);
         WebElement nextButton = driver.findElement(By.xpath("//div[@class='text-center']"));
         nextButton.click();
         LOGGER.info(driver.getCurrentUrl());
@@ -59,16 +67,11 @@ public class Tests {
         //Assert.assertEquals(loginNumber, mainNumber);
 
         //https://wiki.base22.com/display/btg/How+to+setup+SLF4J+and+LOGBack+in+a+web+app+-+fast
+//extract to login
 
-        WebElement extPin = driver.findElement(By.id("pin"));
-        extPin.sendKeys(ext);
-        WebElement extPswd = driver.findElement(By.id("password"));
-        extPswd.sendKeys(pswd);
-        WebElement signIn = driver.findElement(By.cssSelector("button.btn.btn-primary"));
-        signIn.click();
-        String accountInfo = driver.findElement(By.cssSelector("span.extension-info")).getText();
-        Assert.assertEquals(mainNumber + " Ext." + ext, accountInfo);
-        LOGGER.info(driver.findElement(By.cssSelector("span.extension-info")).getText());
+//        String accountInfo = driver.findElement(By.cssSelector("span.extension-info")).getText();
+//        Assert.assertEquals(mainNumber + " Ext." + ext, accountInfo);
+//        LOGGER.info(driver.findElement(By.cssSelector("span.extension-info")).getText());
     }
 
     @AfterTest

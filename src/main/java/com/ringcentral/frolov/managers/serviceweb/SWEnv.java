@@ -7,7 +7,9 @@ public enum SWEnv {
     AMS("https://service-amsup.lab.nordigy.ru");
 
     String url;
-    SWEnv(String url){
+
+    SWEnv(String url) {
+
         this.url = url;
     }
 

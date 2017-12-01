@@ -16,19 +16,20 @@ public class ServiceWebManager {
     String swEnv;
     LoginPage loginPage;
     SignIn signIn;
-    public ServiceWebManager(WebDriver driver, SWEnv env){
+
+    public ServiceWebManager(WebDriver driver, SWEnv env) {
         this(driver, env.toString());
-        loginPage  = new LoginPage(driver);
+        loginPage = new LoginPage(driver);
         signIn = new SignIn(driver);
 
     }
 
-    public ServiceWebManager(WebDriver driver, String env){
+    public ServiceWebManager(WebDriver driver, String env) {
         this.driver = driver;
         this.swEnv = env;
     }
 
-    public ServiceWebManager login(RCAccount account){
+    public ServiceWebManager login(RCAccount account) {
         LOGGER.info(String.format("[ServiceWebManager#login] %s", account));
         navigateTo(Navigation.LOGIN);
         signIn.setEmailOrPhoneNumber(account.getMainNumber());
@@ -43,8 +44,8 @@ public class ServiceWebManager {
         driver.get(getEntry(navigation));
     }
 
-    private String getEntry(Navigation navigation){
-        return this.swEnv+ navigation.toString();
+    private String getEntry(Navigation navigation) {
+        return this.swEnv + navigation.toString();
     }
 
     public LoginPage getLoginPage() {

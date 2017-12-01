@@ -3,7 +3,7 @@
 <suite name="TestPrintString" verbose="1" >
     <test name="Main" >
         <classes>
-            <class name="TestSuit.Tests" />
+            <class name="com.ringcentral.frolov.suit.LoginToSWtest" />
         </classes>
     </test>
 </suite>

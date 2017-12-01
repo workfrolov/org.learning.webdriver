@@ -8,11 +8,11 @@ public class RCAccount {
     private String extension;
     private String password;
 
-    public RCAccount(String mainNumber, String password){
+    public RCAccount(String mainNumber, String password) {
         this(mainNumber, password, "");
     }
 
-    public RCAccount(String mainNumber, String password, String extension){
+    public RCAccount(String mainNumber, String password, String extension) {
         this.mainNumber = mainNumber;
         this.password = password;
         this.extension = extension;

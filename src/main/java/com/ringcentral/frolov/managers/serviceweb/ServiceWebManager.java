@@ -1,11 +1,16 @@
 package com.ringcentral.frolov.managers.serviceweb;
 
 import com.ringcentral.frolov.RCAccount;
+import com.ringcentral.frolov.managers.serviceweb.components.Navigation;
 import com.ringcentral.frolov.managers.serviceweb.pages.LoginPage;
+import com.ringcentral.frolov.managers.serviceweb.pages.MainPage;
 import com.ringcentral.frolov.managers.serviceweb.pages.SignIn;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by alexanderzaverukha on 11/19/17.
@@ -13,20 +18,22 @@ import org.slf4j.LoggerFactory;
 public class ServiceWebManager {
     static final Logger LOGGER = LoggerFactory.getLogger(ServiceWebManager.class);
     WebDriver driver;
+
+    //******* PAGES
     String swEnv;
     LoginPage loginPage;
     SignIn signIn;
+    MainPage mainPage;
 
-    public ServiceWebManager(WebDriver driver, SWEnv env) {
-        this(driver, env.toString());
+    public ServiceWebManager() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        this.swEnv = SWEntry.AMS;
+
         loginPage = new LoginPage(driver);
         signIn = new SignIn(driver);
+        mainPage = new MainPage(driver);
 
-    }
-
-    public ServiceWebManager(WebDriver driver, String env) {
-        this.driver = driver;
-        this.swEnv = env;
     }
 
     public ServiceWebManager login(RCAccount account) {
@@ -54,5 +61,18 @@ public class ServiceWebManager {
 
     public SignIn getSignIn() {
         return signIn;
+    }
+
+    public MainPage getMainPage() { return  mainPage; }
+
+    public void stop(){
+        if(driver!=null) {
+            System.out.println("Closing chrome browser");
+            driver.quit();
+        }
+    }
+
+    public WebDriver getDriver(){
+        return driver;
     }
 }

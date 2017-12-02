@@ -1,4 +1,4 @@
-package com.ringcentral.frolov.managers.serviceweb;
+package com.ringcentral.frolov.managers.serviceweb.components;
 
 /**
  * Created by alexanderzaverukha on 11/19/17.

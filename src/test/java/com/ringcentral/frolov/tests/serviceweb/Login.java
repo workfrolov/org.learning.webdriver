@@ -25,6 +25,8 @@ public class Login extends BaseTest {
     @BeforeTest
     public void before() throws IOException, URISyntaxException {
         serviceWebManager = new ServiceWebManager();
+        //TODO set config
+        //serviceWebManager.setConfig(config);
     }
 
     @AfterTest
@@ -37,6 +39,11 @@ public class Login extends BaseTest {
     public void testLogin() {
         serviceWebManager.navigateTo(Navigation.LOGIN);
         Assert.assertEquals("https://service-amsup.lab.nordigy.ru/#/enterCredential", serviceWebManager.getDriver().getCurrentUrl());
+        //TODO
+       // Assert.assertEquals(serviceWebManager.getConfig().setServiceWebUrl() + "#/enterCredential", serviceWebManager.getDriver().getCurrentUrl());
+
+        //TODO
+        //check login page
         serviceWebManager.getSignIn()
                 .setEmailOrPhoneNumber(account.getMainNumber())
                 .next();

@@ -1,4 +1,4 @@
-package com.ringcentral.suit.Bas;
+package com.ringcentral.frolov.suit;
 
 import org.testng.annotations.*;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     static String driverPath = "C:\\Users\\user\\chromedriver\\";
-    public WebDriver driver;
+    private WebDriver driver;
 
     @BeforeClass
     public void setUp() {
@@ -25,5 +25,9 @@ public class BaseTest {
             System.out.println("Closing chrome browser");
             driver.quit();
         }
+    }
+
+    protected WebDriver getDriver(){
+        return driver;
     }
 }

@@ -1,6 +1,8 @@
 package com.ringcentral.frolov.managers.serviceweb;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ringcentral.frolov.RCAccount;
+import com.ringcentral.frolov.core.Config;
 import com.ringcentral.frolov.managers.serviceweb.components.Navigation;
 import com.ringcentral.frolov.managers.serviceweb.pages.LoginPage;
 import com.ringcentral.frolov.managers.serviceweb.pages.MainPage;
@@ -10,6 +12,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,16 +31,27 @@ public class ServiceWebManager {
     LoginPage loginPage;
     SignIn signIn;
     MainPage mainPage;
+    Config config;
 
-    public ServiceWebManager() {
+    public ServiceWebManager() throws IOException, URISyntaxException {
+        initConfig();
+        System.setProperty("webdriver.chrome.driver", config.getDriverPath());
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        this.swEnv = SWEntry.AMS;
+        this.swEnv = config.getServiceWebUrl();
 
         loginPage = new LoginPage(driver);
         signIn = new SignIn(driver);
         mainPage = new MainPage(driver);
 
+    }
+
+    private void initConfig() throws IOException, URISyntaxException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL configUrl = classLoader.getResource("config.json");
+        byte[] jsonData =  Files.readAllBytes(Paths.get(configUrl.toURI()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        config = objectMapper.readValue(jsonData, Config.class);
     }
 
     public ServiceWebManager login(RCAccount account) {

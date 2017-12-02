@@ -1,0 +1,5 @@
+{
+  "driverPath": "/Users/alexanderzaverukha/Software/chromedriver",
+  "browserType": "chrome",
+  "serviceWebUrl": "https://service-amsup.lab.nordigy.ru"
+}

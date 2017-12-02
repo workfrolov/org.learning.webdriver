@@ -14,13 +14,16 @@ import org.testng.annotations.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 public class Login extends BaseTest {
     static final Logger LOGGER = LoggerFactory.getLogger(Login.class);
     private RCAccount account = new RCAccount("(678) 744-0130", "Test!123", "101");
     ServiceWebManager serviceWebManager;
 
     @BeforeTest
-    public void before(){
+    public void before() throws IOException, URISyntaxException {
         serviceWebManager = new ServiceWebManager();
     }
 

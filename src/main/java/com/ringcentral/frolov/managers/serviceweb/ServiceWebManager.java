@@ -33,8 +33,7 @@ public class ServiceWebManager {
     MainPage mainPage;
     Config config;
 
-    public ServiceWebManager() throws IOException, URISyntaxException {
-        initConfig();
+    public ServiceWebManager(Config config){
         System.setProperty("webdriver.chrome.driver", config.getDriverPath());
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -46,13 +45,6 @@ public class ServiceWebManager {
 
     }
 
-    private void initConfig() throws IOException, URISyntaxException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL configUrl = classLoader.getResource("config.json");
-        byte[] jsonData =  Files.readAllBytes(Paths.get(configUrl.toURI()));
-        ObjectMapper objectMapper = new ObjectMapper();
-        config = objectMapper.readValue(jsonData, Config.class);
-    }
 
     public ServiceWebManager login(RCAccount account) {
         LOGGER.info(String.format("[ServiceWebManager#login] %s", account));

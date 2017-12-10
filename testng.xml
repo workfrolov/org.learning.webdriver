@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Service Web" verbose="1" >
+    <test name="Test login" >
+        <classes>
+            <class name="com.ringcentral.frolov.tests.serviceweb.Login" />
+        </classes>
+    </test>
+
+</suite>

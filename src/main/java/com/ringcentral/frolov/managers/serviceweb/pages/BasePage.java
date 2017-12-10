@@ -1,9 +1,8 @@
 package com.ringcentral.frolov.managers.serviceweb.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,4 +18,10 @@ public class BasePage {
     protected WebDriver getDriver(){
         return driver;
     }
+
+    @Attachment(value = "{0}", type = "image/png")
+    public byte[] saveScreenshot(String name) {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    }
+
 }

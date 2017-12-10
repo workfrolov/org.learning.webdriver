@@ -1,5 +1,7 @@
 package com.ringcentral.frolov;
 
+import ru.yandex.qatools.allure.annotations.Step;
+
 /**
  * Created by alexanderzaverukha on 11/19/17.
  */
@@ -18,11 +20,9 @@ public class RCAccount {
         this.extension = extension;
     }
 
-
     public String getMainNumber() {
         return mainNumber;
     }
-
 
     public String getExtension() {
         return extension;

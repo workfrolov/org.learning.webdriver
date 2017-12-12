@@ -78,5 +78,4 @@ public class LoginPage extends BasePage {
     public String getLoginNumber() {
         return getDriver().findElement(By.xpath("//div[@id='rc-login-country-number']//input")).getAttribute("value");
     }
-
 }

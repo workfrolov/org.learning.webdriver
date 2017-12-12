@@ -7,6 +7,8 @@ import com.ringcentral.frolov.managers.serviceweb.pages.LoginPage;
 import com.ringcentral.frolov.tests.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import org.slf4j.Logger;
@@ -19,6 +21,17 @@ import ru.yandex.qatools.allure.annotations.TestCaseId;
 public class Login extends BaseTest {
     static final Logger LOGGER = LoggerFactory.getLogger(Login.class);
     private RCAccount account = new RCAccount("(678) 744-0130", "Test!123", "101");
+
+    @BeforeTest
+    public void before() {
+        getServiceWebManager();
+    }
+
+    @AfterTest
+    public void after() {
+        if (getServiceWebManager() != null)
+            getServiceWebManager().stop();
+    }
 
     @TestCaseId("TMS-1")
     @Features("My Feature")

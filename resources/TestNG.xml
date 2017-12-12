@@ -1,9 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="TestPrintString" verbose="1" >
-    <test name="Main" >
+<suite name="TestPrintString">
+    <test name="Login">
         <classes>
-            <class name="com.ringcentral.frolov.suit.LoginToSWtest" />
+            <class name="com.ringcentral.frolov.tests.serviceweb.Login"/>
         </classes>
     </test>
+
+    <test name="SignIn">
+        <classes>
+            <class name="com.ringcentral.frolov.tests.serviceweb.SignIn"/>
+        </classes>
+    </test>
+
 </suite>

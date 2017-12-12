@@ -14,7 +14,7 @@ public class MainPage extends BasePage {
     }
 
     @Step("Get login number")
-    public String getLoginNumber(){
+    public String getLoginNumber() {
         return getDriver().findElement(By.xpath("//div[@id='rc-login-country-number']//input")).getAttribute("value");
     }
 

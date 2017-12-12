@@ -31,17 +31,17 @@ public class BaseTest {
     }
 
     @BeforeTest
-    public void beforeTest(){
-        serviceWebManager  = new ServiceWebManager(config);
+    public void beforeTest() {
+        serviceWebManager = new ServiceWebManager(config);
     }
 
     @AfterTest
-    public void after(){
-        if(serviceWebManager != null)
+    public void after() {
+        if (serviceWebManager != null)
             serviceWebManager.stop();
     }
 
-    public ServiceWebManager getServiceWebManager(){
+    public ServiceWebManager getServiceWebManager() {
         return this.serviceWebManager;
     }
 
@@ -57,7 +57,7 @@ public class BaseTest {
 
     }
 
-    public Config getConfig(){
+    public Config getConfig() {
         return this.config;
     }
 
@@ -67,7 +67,7 @@ public class BaseTest {
         ClassLoader classLoader = getClass().getClassLoader();
         URL configUrl = classLoader.getResource("config.properties");
         URI uri = null;
-        if(configUrl != null){
+        if (configUrl != null) {
             try {
                 uri = configUrl.toURI();
             } catch (URISyntaxException e) {
@@ -79,26 +79,26 @@ public class BaseTest {
             } catch (URISyntaxException e) {
                 LOGGER.error("Init config", e);
             }
-        }else{
+        } else {
             configUrl = classLoader.getResource("config.json");
-            if(configUrl != null){
+            if (configUrl != null) {
                 try {
                     uri = configUrl.toURI();
                 } catch (URISyntaxException e) {
                     LOGGER.error("Init config", e);
                 }
-                if(Files.exists(Paths.get(uri))){
+                if (Files.exists(Paths.get(uri))) {
                     this.config = initConfigFromJson(uri);
                 }
             }
         }
 
-        if(config == null){
+        if (config == null) {
             throw new NotFoundException("Config file 'config.properties' or 'config.json'not found");
         }
     }
 
-    private Config initConfigFromProperties(URI configUri){
+    private Config initConfigFromProperties(URI configUri) {
         Config config = new Config();
         try {
             FileInputStream fileInputStream = new FileInputStream(new File(configUri));
@@ -114,7 +114,7 @@ public class BaseTest {
         return config;
     }
 
-    private Config initConfigFromJson(URI configUri){
+    private Config initConfigFromJson(URI configUri) {
         Config config = null;
         byte[] jsonData = new byte[0];
         try {
@@ -131,7 +131,6 @@ public class BaseTest {
         }
         return config;
     }
-
 
 
 }

@@ -11,11 +11,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class BasePage {
     private WebDriver driver;
-    public BasePage(WebDriver driver){
+
+    public BasePage(WebDriver driver) {
         this.driver = driver;
     }
 
-    protected WebDriver getDriver(){
+    protected WebDriver getDriver() {
         return driver;
     }
 

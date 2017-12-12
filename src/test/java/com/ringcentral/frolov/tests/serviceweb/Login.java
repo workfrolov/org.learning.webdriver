@@ -26,37 +26,58 @@ public class Login extends BaseTest {
     @Test
     public void testLogin() {
         navigateToLogin(getServiceWebManager());
-        Assert.assertEquals("https://service-amsup.lab.nordigy.ru/#/enterCredential", getServiceWebManager().getDriver().getCurrentUrl());
-        //TODO
-       // Assert.assertEquals(serviceWebManager.getConfig().setServiceWebUrl() + "#/enterCredential", serviceWebManager.getDriver().getCurrentUrl());
-
-        //TODO
-        //check login page
         loginToMainPage(getServiceWebManager());
-
-        Assert.assertEquals(getServiceWebManager().getMainPage().getAccountInfo(), account.getMainNumber() + " Ext. " + account.getExtension());
-
-        LOGGER.info(getServiceWebManager().getDriver().findElement(By.cssSelector("span.extension-info")).getText());
+        result(getServiceWebManager());
     }
 
-    @Step("Login to main page")
-    public void loginToMainPage(ServiceWebManager serviceWebManager) {
-        serviceWebManager.getSignIn()
-                .setEmailOrPhoneNumber(account.getMainNumber())
-                .next();
-
-        LOGGER.info(serviceWebManager.getDriver().getCurrentUrl());
-        LoginPage loginPage = serviceWebManager.getLoginPage();
-
-        Assert.assertEquals(loginPage.getLoginNumber(), account.getMainNumber());
-
-        loginPage.setExtension(account.getExtension())
-                .setPassword(account.getPassword())
-                .submit();
-    }
 
     @Step("Navigate to login")
     public void navigateToLogin(ServiceWebManager serviceWebManager) {
         serviceWebManager.navigateTo(Navigation.LOGIN);
+        Assert.assertEquals("https://service-amsup.lab.nordigy.ru/#/enterCredential", getServiceWebManager().getDriver().getCurrentUrl());
+    }
+
+    @Step("Login to main page")
+    public void loginToMainPage(ServiceWebManager serviceWebManager) {
+        try {
+            serviceWebManager.getDriver().findElement(By.xpath("//button[@data-test-automation-id='loginCredentialNext']")).isDisplayed();
+            LOGGER.info(getServiceWebManager().getDriver().getCurrentUrl());
+            unifiedEnterCredentialPage(serviceWebManager);
+            unifiedLoginViaPhoneNumber(serviceWebManager);
+
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            LOGGER.info(getServiceWebManager().getDriver().getCurrentUrl());
+            notUnifiedLoginViaPhoneNumber(serviceWebManager);
+        }
+    }
+
+    @Step("Unified Login Page: Enter the phone number and proceed to tne next page")
+    public void unifiedEnterCredentialPage(ServiceWebManager serviceWebManager) {
+        serviceWebManager.getSignIn()
+                .setEmailOrPhoneNumber(account.getMainNumber())
+                .next();
+    }
+
+    @Step("Unified Login Page: Enter the extention and the password > Login to account")
+    public void unifiedLoginViaPhoneNumber(ServiceWebManager serviceWebManager) {
+        serviceWebManager.getLoginPage()
+                .setExtensionUnified(account.getExtension())
+                .setPasswordUnified(account.getPassword())
+                .submitUnified();
+    }
+
+    @Step("Not Unified Login Page: Enter the phone number, extention and the password > Login to account")
+    public void notUnifiedLoginViaPhoneNumber(ServiceWebManager serviceWebManager) {
+        serviceWebManager.getLoginPage()
+                .setMainNumber(account.getMainNumber())
+                .setExtension(account.getExtension())
+                .setPassword(account.getPassword())
+                .submit();
+    }
+
+    @Step("Check the account main number and ext info")
+    public void result(ServiceWebManager serviceWebManager) {
+        Assert.assertEquals(serviceWebManager.getMainPage().getAccountInfo(), account.getMainNumber() + " Ext. " + account.getExtension());
+        LOGGER.info(getServiceWebManager().getDriver().findElement(By.cssSelector("span.extension-info")).getText());
     }
 }

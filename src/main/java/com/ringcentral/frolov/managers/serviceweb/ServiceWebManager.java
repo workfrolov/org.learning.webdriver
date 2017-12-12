@@ -33,7 +33,7 @@ public class ServiceWebManager {
     MainPage mainPage;
     Config config;
 
-    public ServiceWebManager(Config config){
+    public ServiceWebManager(Config config) {
         System.setProperty("webdriver.chrome.driver", config.getDriverPath());
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -73,16 +73,18 @@ public class ServiceWebManager {
         return signIn;
     }
 
-    public MainPage getMainPage() { return  mainPage; }
+    public MainPage getMainPage() {
+        return mainPage;
+    }
 
-    public void stop(){
-        if(driver!=null) {
+    public void stop() {
+        if (driver != null) {
             System.out.println("Closing chrome browser");
             driver.quit();
         }
     }
 
-    public WebDriver getDriver(){
+    public WebDriver getDriver() {
         return driver;
     }
 }

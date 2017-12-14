@@ -3,6 +3,7 @@ package com.ringcentral.frolov.managers.serviceweb;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ringcentral.frolov.RCAccount;
 import com.ringcentral.frolov.core.Config;
+import com.ringcentral.frolov.core.ConfigProperties;
 import com.ringcentral.frolov.managers.serviceweb.components.Navigation;
 import com.ringcentral.frolov.managers.serviceweb.pages.LoginPage;
 import com.ringcentral.frolov.managers.serviceweb.pages.MainPage;
@@ -34,10 +35,10 @@ public class ServiceWebManager {
     Config config;
 
     public ServiceWebManager(Config config){
-        System.setProperty("webdriver.chrome.driver", config.getDriverPath());
+        System.setProperty("webdriver.chrome.driver", ConfigProperties.getTestProperty("driverPathProperty"));
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        this.swEnv = config.getServiceWebUrl();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        this.swEnv = ConfigProperties.getTestProperty("serviceWebUrlProperty");
 
         loginPage = new LoginPage(driver);
         signIn = new SignIn(driver);

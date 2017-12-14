@@ -17,7 +17,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 /**
  * Created by user on 12.12.2017.
  */
-public class SignIn extends BaseTest {
+public class SignUp extends BaseTest {
     static final Logger LOGGER = LoggerFactory.getLogger(Login.class);
 
     @BeforeTest

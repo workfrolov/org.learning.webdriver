@@ -7,10 +7,4 @@
         </classes>
     </test>
 
-    <test name="SignIn">
-        <classes>
-            <class name="com.ringcentral.frolov.tests.serviceweb.SignIn"/>
-        </classes>
-    </test>
-
 </suite>

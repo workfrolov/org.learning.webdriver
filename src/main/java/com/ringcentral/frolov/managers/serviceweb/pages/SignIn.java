@@ -11,9 +11,6 @@ import ru.yandex.qatools.allure.annotations.Step;
  */
 public class SignIn extends BasePage {
 
-    public SignIn(WebDriver driver) {
-        super(driver);
-    }
 
     @Step("Set email or phonenumber: {0}")
     public SignIn setEmailOrPhoneNumber(String emailOrPhoneNumber) {

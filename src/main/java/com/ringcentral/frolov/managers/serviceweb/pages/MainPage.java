@@ -9,10 +9,6 @@ import ru.yandex.qatools.allure.annotations.Step;
  */
 public class MainPage extends BasePage {
 
-    public MainPage(WebDriver driver) {
-        super(driver);
-    }
-
     @Step("Get login number")
     public String getLoginNumber() {
         return getDriver().findElement(By.xpath("//div[@id='rc-login-country-number']//input")).getAttribute("value");

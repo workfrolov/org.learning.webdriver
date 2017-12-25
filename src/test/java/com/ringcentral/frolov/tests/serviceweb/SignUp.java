@@ -49,7 +49,7 @@ public class SignUp extends BaseTest {
     public MainPage clickSignUpHere(ServiceWebManager serviceWebManager) {
         WebElement signIn = serviceWebManager.getDriver().findElement(By.xpath("//*[@id=\"rc-gen11\"]/div/div[1]/div/div[1]/div[2]/div[2]/a"));
         signIn.click();
-        return new MainPage(serviceWebManager.getDriver());
+        return new MainPage();
     }
 
     @Step("Check the the page link where was redirected")

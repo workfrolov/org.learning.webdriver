@@ -2,6 +2,7 @@ package com.ringcentral.frolov.tests.serviceweb;
 
 import com.ringcentral.frolov.RCAccount;
 import com.ringcentral.frolov.core.ConfigProperties;
+import com.ringcentral.frolov.core.WrappedDriver;
 import com.ringcentral.frolov.managers.serviceweb.components.Navigation;
 import com.ringcentral.frolov.managers.serviceweb.ServiceWebManager;
 import com.ringcentral.frolov.managers.serviceweb.pages.BasePage;
@@ -45,6 +46,7 @@ public class Login extends BaseTest {
         navigateToLogin(getServiceWebManager());
         loginToMainPage(getServiceWebManager());
         result(getServiceWebManager());
+        WrappedDriver.get().getDriver().
     }
 
 
@@ -115,7 +117,7 @@ public class Login extends BaseTest {
     public MainPage clickSignUpHereSignUp(ServiceWebManager serviceWebManager) {
         WebElement signIn = serviceWebManager.getDriver().findElement(By.xpath("//*[@id=\"rc-gen11\"]/div/div[1]/div/div[1]/div[2]/div[2]/a"));
         signIn.click();
-        return new MainPage(serviceWebManager.getDriver());
+        return new MainPage();
     }
 
     @Step("Check the the page link where was redirected")

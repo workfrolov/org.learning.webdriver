@@ -1,28 +1,22 @@
 package com.ringcentral.frolov.managers.serviceweb.pages;
 
+import com.ringcentral.frolov.core.WrappedDriver;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.qatools.allure.annotations.Attachment;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by user on 30.11.2017.
  */
 public class BasePage {
-    private WebDriver driver;
-
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-    }
 
     protected WebDriver getDriver() {
-        return driver;
+        return WrappedDriver.get().getDriver();
     }
 
     @Attachment(value = "{0}", type = "image/png")
     public byte[] saveScreenshot(String name) {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) WrappedDriver.get().getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
 }

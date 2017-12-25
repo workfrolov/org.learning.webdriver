@@ -1,9 +1,9 @@
 package com.ringcentral.frolov.managers.serviceweb;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ringcentral.frolov.RCAccount;
 import com.ringcentral.frolov.core.Config;
 import com.ringcentral.frolov.core.ConfigProperties;
+import com.ringcentral.frolov.core.WrappedDriver;
 import com.ringcentral.frolov.managers.serviceweb.components.Navigation;
 import com.ringcentral.frolov.managers.serviceweb.pages.LoginPage;
 import com.ringcentral.frolov.managers.serviceweb.pages.MainPage;
@@ -13,11 +13,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,14 +30,10 @@ public class ServiceWebManager {
     Config config;
 
     public ServiceWebManager(Config config){
-        System.setProperty("webdriver.chrome.driver", ConfigProperties.getTestProperty("driverPathProperty"));
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         this.swEnv = ConfigProperties.getTestProperty("serviceWebUrlProperty");
-
-        loginPage = new LoginPage(driver);
-        signIn = new SignIn(driver);
-        mainPage = new MainPage(driver);
+        loginPage = new LoginPage();
+        signIn = new SignIn();
+        mainPage = new MainPage();
 
     }
 
@@ -59,7 +50,7 @@ public class ServiceWebManager {
     }
 
     public void navigateTo(Navigation navigation) {
-        driver.get(getEntry(navigation));
+        getDriver().get(getEntry(navigation));
     }
 
     private String getEntry(Navigation navigation) {
@@ -77,13 +68,10 @@ public class ServiceWebManager {
     public MainPage getMainPage() { return  mainPage; }
 
     public void stop(){
-        if(driver!=null) {
-            System.out.println("Closing chrome browser");
-            driver.quit();
-        }
+        WrappedDriver.get().stop();
     }
 
     public WebDriver getDriver(){
-        return driver;
+        return  WrappedDriver.get().getDriver();
     }
 }

@@ -25,7 +25,7 @@ import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 public class Login extends BaseTest {
     static final Logger LOGGER = LoggerFactory.getLogger(Login.class);
-    private RCAccount account = new RCAccount("(678) 744-0130", "Test!123", "101");
+    private RCAccount account = new RCAccount("(855) 670-4247", "Test!123", "101");
 
     @BeforeTest
     public void before() {
@@ -46,7 +46,6 @@ public class Login extends BaseTest {
         navigateToLogin(getServiceWebManager());
         loginToMainPage(getServiceWebManager());
         result(getServiceWebManager());
-        WrappedDriver.get().getDriver().
     }
 
 

@@ -39,6 +39,20 @@ public class WrappedDriver{
        LOGGER.info("Click on: '" + locator + "' successfull");
    }
 
+   public void setValue(String locator, String value){
+       LOGGER.info("Set value " + "'"+ value + "' " + "to: '" + locator + "'");
+        driver.findElement(By.xpath(locator)).sendKeys(value);
+       LOGGER.info("Set value " + "'value' " + "to: '" + locator + "' was successfull");
+   }
+
+
+    public String getValue(String locator){
+        LOGGER.info("Get value from: '" + locator + "'");
+        String text = driver.findElement(By.xpath(locator)).getText();
+        LOGGER.info("Get value from: '" + locator + "' returns: " + text);
+        return text;
+    }
+
    public static WrappedDriver get(){
        if(instance == null)
            instance = new WrappedDriver();

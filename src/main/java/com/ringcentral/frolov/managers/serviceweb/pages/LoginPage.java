@@ -14,6 +14,8 @@ public class LoginPage extends BasePage {
     @Step("Set extension: {0}")
     public LoginPage setExtension(String extension) {
         WebElement extPin = getDriver().findElement(By.id("rc-login-pin"));
+        extPin.click();
+        extPin.clear();
         extPin.sendKeys(extension);
         saveScreenshot("setExtension");
         return this;
@@ -44,6 +46,8 @@ public class LoginPage extends BasePage {
     @Step("Unified: Set extension: {0}")
     public LoginPage setExtensionUnified(String extension) {
         WebElement extPin = getDriver().findElement(By.id("pin"));
+        extPin.click();
+        extPin.clear();
         extPin.sendKeys(extension);
         saveScreenshot("unifiedSetExtension");
         return this;

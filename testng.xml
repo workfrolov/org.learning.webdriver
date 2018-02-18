@@ -4,8 +4,11 @@
     <test name="Login">
         <classes>
             <class name="com.ringcentral.frolov.tests.serviceweb.Login"/>
+        </classes>
+    </test>
+    <test name="SignUp">
+        <classes>
             <class name="com.ringcentral.frolov.tests.serviceweb.SignUp"/>
         </classes>
     </test>
-
 </suite>

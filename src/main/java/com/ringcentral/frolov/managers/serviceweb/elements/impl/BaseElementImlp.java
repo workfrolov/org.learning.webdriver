@@ -28,6 +28,7 @@ public class BaseElementImlp implements com.ringcentral.frolov.managers.servicew
         WrappedDriver.get().click(this.locator);
     }
 
+
     @Override
     public void waitFor() {
 

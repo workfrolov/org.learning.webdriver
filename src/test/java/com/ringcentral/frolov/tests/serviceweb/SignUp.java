@@ -54,7 +54,8 @@ public class SignUp extends BaseTest {
 
     @Step("Check the the page link where was redirected")
     public void result(ServiceWebManager serviceWebManager) {
-        Assert.assertEquals("http://service-amsup-us.lab.nordigy.ru/office/plansandpricing.html", getServiceWebManager().getDriver().getCurrentUrl());
+        LOGGER.info(getServiceWebManager().getDriver().getCurrentUrl());
+        Assert.assertEquals("https://service-amsup-us.lab.nordigy.ru/office/plansandpricing.html", getServiceWebManager().getDriver().getCurrentUrl());
         LOGGER.info(getServiceWebManager().getDriver().getCurrentUrl());
     }
 }

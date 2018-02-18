@@ -29,6 +29,7 @@ public class ServiceWebManager {
     MainPage mainPage;
     Config config;
 
+
     public ServiceWebManager(Config config){
         this.swEnv = ConfigProperties.getTestProperty("serviceWebUrlProperty");
         loginPage = new LoginPage();
@@ -53,6 +54,8 @@ public class ServiceWebManager {
         getDriver().get(getEntry(navigation));
     }
 
+
+
     private String getEntry(Navigation navigation) {
         return this.swEnv + navigation.toString();
     }
@@ -74,4 +77,11 @@ public class ServiceWebManager {
     public WebDriver getDriver(){
         return  WrappedDriver.get().getDriver();
     }
+
+
+    public void clickThePhoneNumbersTab(){
+        WrappedDriver.get().click("phoneNumbers");
+    }
+
+
 }

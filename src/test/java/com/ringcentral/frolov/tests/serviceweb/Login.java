@@ -25,7 +25,7 @@ import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 public class Login extends BaseTest {
     static final Logger LOGGER = LoggerFactory.getLogger(Login.class);
-    private RCAccount account = new RCAccount("(855) 670-4247", "Test!123", "101");
+    private RCAccount account = new RCAccount("(844) 583-1768", "Test!123", "101");
 
     @BeforeTest
     public void before() {
@@ -45,6 +45,7 @@ public class Login extends BaseTest {
     public void testLogin() {
         navigateToLogin(getServiceWebManager());
         loginToMainPage(getServiceWebManager());
+        legalLinkText(getServiceWebManager());
         result(getServiceWebManager());
     }
 
@@ -99,12 +100,12 @@ public class Login extends BaseTest {
         LOGGER.info(getServiceWebManager().getDriver().findElement(By.cssSelector("span.extension-info")).getText());
     }
 
-    @Test
-    public void testSignUp(){
-        navigateToLoginSignUp(getServiceWebManager());
-        clickSignUpHereSignUp(getServiceWebManager());
-        resultSignUp(getServiceWebManager());
-    }
+    //@Test
+    //public void testSignUp(){
+    //    navigateToLoginSignUp(getServiceWebManager());
+    //   clickSignUpHereSignUp(getServiceWebManager());
+    //   resultSignUp(getServiceWebManager());
+    //}
 
     @Step("Navigate to login")
     public void navigateToLoginSignUp(ServiceWebManager serviceWebManager) {
@@ -121,7 +122,12 @@ public class Login extends BaseTest {
 
     @Step("Check the the page link where was redirected")
     public void resultSignUp(ServiceWebManager serviceWebManager) {
-        Assert.assertEquals("http://service-amsup-us.lab.nordigy.ru/office/plansandpricing.html", getServiceWebManager().getDriver().getCurrentUrl());
+        Assert.assertEquals("https://service-amsup-us.lab.nordigy.ru/office/plansandpricing.html", getServiceWebManager().getDriver().getCurrentUrl());
         LOGGER.info(getServiceWebManager().getDriver().getCurrentUrl());
+    }
+
+    @Step("htmlelements check footer legal link")
+    public void legalLinkText(ServiceWebManager serviceWebManager){
+        Assert.assertEquals("http://service-amsup-us.lab.nordigy.ru/legal.html", getServiceWebManager().getMainPage().checkFooterLegalLink());
     }
 }

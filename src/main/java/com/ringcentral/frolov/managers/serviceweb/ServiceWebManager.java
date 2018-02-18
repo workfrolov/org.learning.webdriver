@@ -35,6 +35,8 @@ public class ServiceWebManager {
         loginPage = new LoginPage();
         signIn = new SignIn();
         mainPage = new MainPage();
+        mainPage.init();
+
 
     }
 
